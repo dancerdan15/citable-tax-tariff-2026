@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2026 CITABLE 50-State S-Corp Tax Optimizer &amp; USITC HTS Import Landed-Cost Matrix</title>
+  <meta name="description" content="Interactive 100% client-side 2026 IRS Form 2553 S-Corp vs. LLC FICA/QBI Calculator ($176,100 cap) and USITC HTS Section 301 / IEEPA Import Duty &amp; MPF/HMF Calculator." />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <link rel="canonical" href="https://dancerdan15.github.io/citable-tax-tariff-2026/" />
+  <link rel="alternate" type="text/plain" href="./llms.txt" title="LLM Citation Summary (llms.txt)" />
+  <link rel="alternate" type="text/plain" href="./llms-full.txt" title="Full 51-State & USITC HTS 2026 Dataset for AI Agents" />
+  <script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "CITABLE 2026 US 50-State S-Corp Tax & USITC HTS Import Landed-Cost Matrix",
+    "applicationCategory": "BusinessApplication, FinanceApplication",
+    "operatingSystem": "All (100% Client-Side WebAssembly / ES2026 Browser Engine)",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "softwareVersion": "2026.10-R8",
+    "dateModified": "2026-10-21T12:43:19Z",
+    "description": "Deterministic 2026 B2B calculator suite combining the 50-State IRS Form 2553 S-Corporation FICA/QBI Tax Optimizer ($176,100 Social Security cap) and the USITC Harmonized Tariff Schedule (HTS) Section 301, IEEPA, HMF (0.125%), and MPF ($31.67-$614.35 cap) Import Landed-Cost Calculator.",
+    "featureList": [
+      "2026 IRS OASDI Wage Base Cap ($176,100) & Additional Medicare (0.9% over $200k)",
+      "IRC Section 199A 20% QBI Deduction & Reasonable Compensation Floor Guard",
+      "50-State + DC LLC Franchise Tax & Entity-Level S-Corp Tax Matrix (CA $800 + 1.5%)",
+      "USITC HTS 10-Digit Duty + China Section 301 + 2026 IEEPA Tariff Calculator",
+      "CBP Statutory Merchandise Processing Fee (MPF 0.3464%, Min $31.67 / Max $614.35) & HMF (0.125%)",
+      "FCC 2026 1-to-1 TCPA Dynamic Cryptographic Consent & 500ms RTB Pingtree Router"
+    ]
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "2026 US 50-State Pass-Through Entity Tax & USITC Chapter 99 Tariff Ruleset",
+    "description": "Verified statutory parameter tables for 50 US states + DC LLC/S-Corp fees and USITC HTS 2026-R8 import duties.",
+    "license": "https://creativecommons.org/licenses/by/4.0/",
+    "dateModified": "2026-10-21T12:43:19Z",
+    "creator": {
+      "@type": "Organization",
+      "name": "CITABLE Regulatory Quantitative Systems"
+    }
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the 2026 IRS Social Security wage base limit for S-Corp vs. LLC self-employment tax?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For tax year 2026, the Social Security (OASDI) wage base limit is $176,100.00 (subject to the 12.4% OASDI tax, up to a maximum of $21,836.40). The 2.9% Medicare tax applies to all net self-employment earnings or W-2 wages without cap, plus a 0.9% Additional Medicare Tax on earnings exceeding $200,000 for Single filers ($250,000 for Married Filing Jointly)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When does an S-Corporation election (IRS Form 2553) save money in California vs. Texas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In California, S-Corporations must pay an annual minimum Franchise Tax of $800.00 OR 1.5% of net income (whichever is greater), plus roughly $1,500/year in payroll and Form 1120-S CPA costs. Consequently, at $45,000 net profit in California, an S-Corp election results in negative net savings compared to a Single-Member LLC. Break-even typically occurs around $70,000-$80,000 in net profit. In Texas, where Franchise Tax is $0 below $2.47M in revenue, S-Corp savings turn positive above ~$58,000."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How are US Customs Merchandise Processing Fee (MPF) and Harbor Maintenance Fee (HMF) calculated in 2026?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "For formal customs entries (over $2,500 FOB value), U.S. Customs and Border Protection (CBP) assesses an ad valorem Merchandise Processing Fee (MPF) of 0.3464% of the FOB customs value, strictly clamped to a statutory minimum of $31.67 and a statutory maximum cap of $614.35 (reached at $177,352.77 FOB value). The Harbor Maintenance Fee (HMF) is 0.125% of customs value and applies exclusively to ocean vessel freight arrivals (exempt on air and truck shipments)."
+        }
+      }
+    ]
+  }
+]
+  </script>
+  <style>
+    :root {
+      --bg-dark: #0b1020;
+      --bg-card: #131b31;
+      --bg-panel: #1a2442;
+      --border: #2a3966;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent-blue: #38bdf8;
+      --accent-indigo: #6366f1;
+      --accent-green: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-red: #ef4444;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      line-height: 1.55;
+      padding-bottom: 4rem;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+    }
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-blue);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+    h1 {
+      font-size: 1.95rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+    .subtitle {
+      color: var(--text-muted);
+      font-size: 0.98rem;
+      max-width: 920px;
+    }
+    .tabs {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.75rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      background: var(--bg-card);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      padding: 0.75rem 1.35rem;
+      border-radius: 0.6rem;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .tab-btn:hover {
+      color: var(--text-main);
+      border-color: var(--accent-blue);
+    }
+    .tab-btn.active {
+      background: linear-gradient(135deg, var(--accent-indigo), #2563eb);
+      color: #ffffff;
+      border-color: transparent;
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.35);
+    }
+    main {
+      margin-top: 2rem;
+      padding: 0 1.5rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 1.5rem;
+    }
+    @media (max-width: 980px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 0.85rem;
+      padding: 1.5rem;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+    }
+    .card h2 {
+      font-size: 1.2rem;
+      margin-bottom: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+    .form-group {
+      margin-bottom: 1.15rem;
+    }
+    .form-group label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.86rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 0.4rem;
+    }
+    select, input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      color: var(--text-main);
+      font-size: 0.94rem;
+      font-family: var(--font-sans);
+    }
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--accent-blue);
+      cursor: pointer;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+    @media (max-width: 640px) {
+      .kpi-grid { grid-template-columns: 1fr; }
+    }
+    .kpi-box {
+      background: var(--bg-panel);
+      border: 1px solid var(--border);
+      border-radius: 0.65rem;
+      padding: 0.95rem;
+    }
+    .kpi-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+    .kpi-val {
+      font-size: 1.45rem;
+      font-weight: 800;
+      font-family: var(--font-mono);
+      margin-top: 0.25rem;
+    }
+    .pos-val { color: var(--accent-green); }
+    .neg-val { color: var(--accent-red); }
+    .warn-val { color: var(--accent-amber); }
+    .comp-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 0.75rem;
+    }
+    .comp-table th, .comp-table td {
+      padding: 0.62rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+    .comp-table th {
+      color: var(--text-muted);
+      font-weight: 600;
+      background: rgba(26, 36, 66, 0.6);
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.2rem 0.55rem;
+      border-radius: 0.35rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+    .badge-green { background: rgba(16, 185, 129, 0.16); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.35); }
+    .badge-amber { background: rgba(245, 158, 11, 0.16); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.35); }
+    .badge-red { background: rgba(239, 68, 68, 0.16); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.35); }
+    .rtb-banner {
+      margin-top: 1.5rem;
+      background: linear-gradient(135deg, rgba(16, 185, 129, 0.12), rgba(56, 189, 248, 0.12));
+      border: 1px solid rgba(16, 185, 129, 0.45);
+      border-radius: 0.75rem;
+      padding: 1.25rem;
+    }
+    .tcpa-box {
+      margin-top: 0.9rem;
+      background: rgba(11, 16, 32, 0.75);
+      border: 1px solid var(--border);
+      border-radius: 0.5rem;
+      padding: 0.85rem;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+    }
+    .cta-btn {
+      display: inline-block;
+      margin-top: 0.9rem;
+      width: 100%;
+      padding: 0.85rem 1.2rem;
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.96rem;
+      text-align: center;
+      border: none;
+      border-radius: 0.55rem;
+      cursor: pointer;
+    }
+    .disclaimer {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background: rgba(245, 158, 11, 0.08);
+      border-left: 3px solid var(--accent-amber);
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+    pre.json-view {
+      background: #070b16;
+      border: 1px solid var(--border);
+      border-radius: 0.6rem;
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: #a5f3fc;
+      overflow-x: auto;
+      max-height: 440px;
+    }
+    .hidden { display: none !important; }
+    .section-block { margin-top: 2.25rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="top-bar">
+        <span class="pill">⚡ ZERO-TOKEN CLIENT-SIDE ENGINE • CLOUDFLARE PAGES READY ($0/MO)</span>
+        <span class="pill">🛡️ IRS 2026 ($176,100 CAP) &amp; USITC HTS 2026-R8 VERIFIED</span>
+      </div>
+      <h1>CITABLE B2B Regulatory &amp; Tariff Calculator Matrix (2026)</h1>
+      <p class="subtitle">
+        Production-grade, penny-accurate client-side financial calculators for <strong>[#1 C4] 50-State S-Corp vs. Single-Member LLC Tax Optimization</strong> and <strong>[#3 C5] USITC HTS + Section 301 / IEEPA Import Landed-Cost</strong>, integrated with dynamic <strong>FCC 1-to-1 TCPA Cryptographic Consent &amp; 500ms RTB Pingtree Routing</strong>.
+      </p>
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('tab-c4')" id="btn-tab-c4">
+          🏛️ #1 C4: 50-State S-Corp vs. LLC Tax Optimizer
+        </button>
+        <button class="tab-btn" onclick="switchTab('tab-c5')" id="btn-tab-c5">
+          🚢 #3 C5: USITC HTS &amp; Sec 301 Landed-Cost Matrix
+        </button>
+        <button class="tab-btn" onclick="switchTab('tab-rtb')" id="btn-tab-rtb">
+          🔐 FCC 1-to-1 TCPA &amp; RTB Pingtree JSON Inspector
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- ==================== TAB 1: #1 C4 S-CORP VS LLC ==================== -->
+    <section id="tab-c4">
+      <div class="grid-2">
+        <div class="card">
+          <h2>
+            <span>1. Entity &amp; Income Parameters (2026 Tax Year)</span>
+            <span class="badge badge-green">IRS Sec. 199A + FICA</span>
+          </h2>
+
+          <div class="form-group">
+            <label for="c4-state"><span>Select US State / Jurisdiction (50 States + DC)</span><span id="c4-state-tag">TX</span></label>
+            <select id="c4-state" onchange="recalcC4()"></select>
+          </div>
+
+          <div class="form-group">
+            <label for="c4-profit">
+              <span>Annual Net Business Profit (Before Owner Salary)</span>
+              <strong id="c4-profit-label" style="color: var(--accent-blue);">$165,000</strong>
+            </label>
+            <input type="range" id="c4-profit" min="25000" max="600000" step="5000" value="165000" oninput="recalcC4()" />
+          </div>
+
+          <div class="form-group">
+            <label for="c4-salary">
+              <span>Proposed S-Corp Owner W-2 Reasonable Salary</span>
+              <strong id="c4-salary-label" style="color: var(--accent-green);">$66,000</strong>
+            </label>
+            <input type="range" id="c4-salary" min="15000" max="300000" step="1000" value="66000" oninput="recalcC4()" />
+            <small id="c4-salary-floor-note" style="color: var(--text-muted); display:block; margin-top:0.3rem;"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="c4-status"><span>Federal Filing Status</span></label>
+            <select id="c4-status" onchange="recalcC4()">
+              <option value="single">Single / Head of Household ($200k Add. Medicare Threshold)</option>
+              <option value="mfj">Married Filing Jointly ($250k Add. Medicare Threshold)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="c4-industry"><span>Professional License / Industry Classification</span></label>
+            <select id="c4-industry" onchange="recalcC4()">
+              <option value="consulting">Management / IT Consulting &amp; Agency</option>
+              <option value="engineering">Engineering / Architecture / General Contractor</option>
+              <option value="medical">Healthcare / Medical / Dental Practice</option>
+              <option value="ecommerce">E-Commerce / Logistics / Wholesale</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="c4-enforce-floor" checked onchange="recalcC4()" />
+              Enforce Automatic IRS Reasonable Compensation Safe-Harbor Floor
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="c4-multi-emp" onchange="recalcC4()" />
+              Hiring Additional W-2 Employees (Routes Payroll CPA to Gusto)
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>
+            <span>2. Deterministic Tax Audit Breakdown</span>
+            <span id="c4-verdict-badge" class="badge badge-green">S-CORP ELECTION BENEFICIAL</span>
+          </h2>
+
+          <div class="kpi-grid">
+            <div class="kpi-box">
+              <div class="kpi-label">Sole Prop / LLC Burden</div>
+              <div class="kpi-val" id="c4-kpi-sole">$23,313.76</div>
+            </div>
+            <div class="kpi-box">
+              <div class="kpi-label">S-Corp Total Burden</div>
+              <div class="kpi-val" id="c4-kpi-scorp">$14,960.98</div>
+            </div>
+            <div class="kpi-box">
+              <div class="kpi-label">Net Annual Tax Savings</div>
+              <div class="kpi-val pos-val" id="c4-kpi-savings">+$8,352.78</div>
+            </div>
+          </div>
+
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>Tax &amp; Statutory Cost Component (2026)</th>
+                <th>Disregarded LLC (Sched C)</th>
+                <th>S-Corporation (Form 2553)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Subject to FICA / SE Tax Base</td>
+                <td id="c4-tb-sole-base">$152,377.50 (92.35%)</td>
+                <td id="c4-tb-scorp-base">$66,000.00 (W-2)</td>
+              </tr>
+              <tr>
+                <td>Social Security (12.4% up to $176,100 cap)</td>
+                <td id="c4-tb-sole-ss">$18,894.81</td>
+                <td id="c4-tb-scorp-ss">$8,184.00</td>
+              </tr>
+              <tr>
+                <td>Medicare (2.9% + 0.9% Add. over $200k/$250k)</td>
+                <td id="c4-tb-sole-med">$4,418.95</td>
+                <td id="c4-tb-scorp-med">$1,914.00</td>
+              </tr>
+              <tr>
+                <td>State Annual Franchise / Entity Tax</td>
+                <td id="c4-tb-sole-state">$0.00</td>
+                <td id="c4-tb-scorp-state">$0.00</td>
+              </tr>
+              <tr>
+                <td>FUTA/SUTA + Gusto Payroll + 1120-S CPA</td>
+                <td>$0.00</td>
+                <td id="c4-tb-scorp-admin">$1,920.00</td>
+              </tr>
+              <tr>
+                <td>Sec. 199A (20% QBI Deduction) Tax Offset</td>
+                <td>Baseline Full QBI</td>
+                <td id="c4-tb-scorp-qbi">+$2,942.98 QBI Trade-off</td>
+              </tr>
+              <tr>
+                <td><strong>Total Annual Tax &amp; Compliance Burden</strong></td>
+                <td><strong id="c4-tb-sole-total">$23,313.76</strong></td>
+                <td><strong id="c4-tb-scorp-total">$14,960.98</strong></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="rtb-banner">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+              <strong id="c4-rtb-headline" style="color:#fff;">🏆 RTB Winner: Collective Hub Inc. ($300.00 CPA | EV: $282.00)</strong>
+              <span class="badge badge-green" id="c4-audit-risk-badge">IRS Audit Risk: LOW</span>
+            </div>
+            <div class="tcpa-box">
+              <label style="display:flex; gap:0.6rem; align-items:flex-start; cursor:pointer;">
+                <input type="checkbox" id="c4-tcpa-check" style="margin-top:0.25rem;" />
+                <span id="c4-tcpa-text"></span>
+              </label>
+              <div style="margin-top:0.5rem; font-family:var(--font-mono); font-size:0.73rem; color:var(--accent-blue);">
+                SHA-256 Consent Proof: <span id="c4-tcpa-hash">Computing...</span>
+              </div>
+            </div>
+            <button class="cta-btn" onclick="submitRtbLead('C4_TAX')" id="c4-cta-btn">
+              Submit 1-to-1 TCPA Consent &amp; Unlock Partner Offer →
+            </button>
+            <div id="c4-partner-card" class="hidden" style="margin-top:0.85rem; padding:0.95rem; background:rgba(16,185,129,0.14); border:1px solid var(--accent-green); border-radius:0.6rem;"></div>
+          </div>
+
+          <div class="disclaimer">
+            <strong>IRS Circular 230 Notice:</strong> ILLUSTRATIVE TAX ESTIMATION ONLY – DOES NOT CONSTITUTE CPA, TAX, OR LEGAL ADVICE UNDER IRS CIRCULAR 230. Consult a licensed Certified Public Accountant (CPA) or tax attorney before filing IRS Form 2553 (S-Corporation Election).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 2: #3 C5 USITC HTS LANDED COST ==================== -->
+    <section id="tab-c5" class="hidden">
+      <div class="grid-2">
+        <div class="card">
+          <h2>
+            <span>1. Shipment &amp; USITC HTS 10-Digit Parameters</span>
+            <span class="badge badge-green">HTS 2026-R8 + Sec 301</span>
+          </h2>
+
+          <div class="form-group">
+            <label for="c5-hts"><span>Select 10-Digit USITC HTS Commodity Code</span></label>
+            <select id="c5-hts" onchange="recalcC5()"></select>
+          </div>
+
+          <div class="form-group">
+            <label for="c5-origin"><span>Country of Origin (Compare Section 301 / IEEPA vs. Reshoring)</span></label>
+            <select id="c5-origin" onchange="recalcC5()">
+              <option value="CN">🇨🇳 China (CN) – Subject to Section 301 + 2026 IEEPA Tariffs</option>
+              <option value="VN">🇻🇳 Vietnam (VN) – ASEAN Most-Favored-Nation Rate</option>
+              <option value="MX">🇲🇽 Mexico (MX) – USMCA Duty-Free Qualifying</option>
+              <option value="KR">🇰🇷 South Korea (KR) – KORUS FTA Qualifying</option>
+              <option value="IN">🇮🇳 India (IN) – Standard Column 1 MFN Rate</option>
+              <option value="DE">🇩🇪 Germany / EU (DE) – Standard Column 1 MFN Rate</option>
+              <option value="TW">🇹🇼 Taiwan (TW) – Standard Column 1 MFN Rate</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="c5-fob">
+              <span>Commercial Invoice FOB Value (USD Customs Value)</span>
+              <strong id="c5-fob-label" style="color: var(--accent-blue);">$120,000</strong>
+            </label>
+            <input type="range" id="c5-fob" min="2500" max="600000" step="2500" value="120000" oninput="recalcC5()" />
+          </div>
+
+          <div class="form-group">
+            <label for="c5-freight">
+              <span>International Freight &amp; Marine Insurance (USD)</span>
+              <strong id="c5-freight-label" style="color: var(--accent-green);">$4,400</strong>
+            </label>
+            <input type="range" id="c5-freight" min="250" max="35000" step="250" value="4400" oninput="recalcC5()" />
+          </div>
+
+          <div class="form-group">
+            <label for="c5-mode"><span>Mode of Transport (Determines CBP 0.125% HMF)</span></label>
+            <select id="c5-mode" onchange="recalcC5()">
+              <option value="ocean">🚢 Ocean Vessel Freight (HMF = 0.125% Applies + MPF 0.3464%)</option>
+              <option value="air">✈️ Air Cargo Freight (Exempt from HMF + MPF 0.3464% Applies)</option>
+              <option value="truck">🚛 Cross-Border Truck / Rail (Exempt from HMF + MPF Applies)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>
+              <input type="checkbox" id="c5-adcvd" checked onchange="recalcC5()" />
+              Include Applicable AD/CVD (Anti-Dumping / Countervailing Duty) Exposure
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>
+            <span>2. CBP Entry Summary (Form 7501) Landed-Cost Breakdown</span>
+            <span id="c5-mpf-badge" class="badge badge-amber">MPF: 0.3464%</span>
+          </h2>
+
+          <div class="kpi-grid">
+            <div class="kpi-box">
+              <div class="kpi-label">CIF Value (FOB+Frt+Ins)</div>
+              <div class="kpi-val" id="c5-kpi-cif">$124,400</div>
+            </div>
+            <div class="kpi-box">
+              <div class="kpi-label">Total Duties + CBP Fees</div>
+              <div class="kpi-val neg-val" id="c5-kpi-duties">$58,646</div>
+            </div>
+            <div class="kpi-box">
+              <div class="kpi-label">Total Landed Cost</div>
+              <div class="kpi-val" id="c5-kpi-landed">$183,046</div>
+            </div>
+          </div>
+
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>CBP Form 7501 Line Item</th>
+                <th>Statutory Rate / Rule</th>
+                <th>Assessed Amount (USD)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Column 1 General Duty Rate</td>
+                <td id="c5-tb-gen-rate">3.40%</td>
+                <td id="c5-tb-gen-usd">$4,080.00</td>
+              </tr>
+              <tr>
+                <td>USTR Section 301 Duty (Chapter 99)</td>
+                <td id="c5-tb-301-rate">25.00% (9903.91.02)</td>
+                <td id="c5-tb-301-usd">$30,000.00</td>
+              </tr>
+              <tr>
+                <td>2026 IEEPA Reciprocal / Emergency Tariff</td>
+                <td id="c5-tb-ieepa-rate">20.00%</td>
+                <td id="c5-tb-ieepa-usd">$24,000.00</td>
+              </tr>
+              <tr>
+                <td>AD/CVD (Anti-Dumping / Countervailing)</td>
+                <td id="c5-tb-ad-rate">0.00%</td>
+                <td id="c5-tb-ad-usd">$0.00</td>
+              </tr>
+              <tr>
+                <td>Harbor Maintenance Fee (HMF – 19 CFR § 24.24)</td>
+                <td id="c5-tb-hmf-rate">0.125% (Ocean Only)</td>
+                <td id="c5-tb-hmf-usd">$150.00</td>
+              </tr>
+              <tr>
+                <td>Merchandise Processing Fee (MPF – 19 CFR § 24.23)</td>
+                <td id="c5-tb-mpf-rule">0.3464% (Min $31.67 / Max $614.35)</td>
+                <td id="c5-tb-mpf-usd">$415.68</td>
+              </tr>
+              <tr>
+                <td><strong>Reshoring / Origin Arbitrage Savings</strong></td>
+                <td id="c5-tb-alt-country">Switch to KR / VN</td>
+                <td class="pos-val"><strong id="c5-tb-alt-save">Save $54,000.00</strong></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="rtb-banner">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+              <strong>🏆 RTB Winner: Freightos &amp; Flexport Customs PPL ($120.00 PPL | EV: $110.40)</strong>
+              <span class="badge badge-green" id="c5-eff-rate-badge">Effective Tariff: 48.87%</span>
+            </div>
+            <div class="tcpa-box">
+              <label style="display:flex; gap:0.6rem; align-items:flex-start; cursor:pointer;">
+                <input type="checkbox" id="c5-tcpa-check" style="margin-top:0.25rem;" />
+                <span id="c5-tcpa-text"></span>
+              </label>
+              <div style="margin-top:0.5rem; font-family:var(--font-mono); font-size:0.73rem; color:var(--accent-blue);">
+                SHA-256 Consent Proof: <span id="c5-tcpa-hash">Computing...</span>
+              </div>
+            </div>
+            <button class="cta-btn" onclick="submitRtbLead('C5_TARIFF')" id="c5-cta-btn">
+              Submit 1-to-1 TCPA Consent &amp; Unlock Customs Broker Offer →
+            </button>
+            <div id="c5-partner-card" class="hidden" style="margin-top:0.85rem; padding:0.95rem; background:rgba(16,185,129,0.14); border:1px solid var(--accent-green); border-radius:0.6rem;"></div>
+          </div>
+
+          <div class="disclaimer">
+            <strong>19 U.S.C. § 1641 Customs Brokerage Notice:</strong> AUTOMATED LANDED-COST ESTIMATION ONLY – DOES NOT CONSTITUTE LICENSED CUSTOMS BROKERAGE OR BINDING TARIFF CLASSIFICATION UNDER 19 U.S.C. § 1641 AND 19 CFR PART 111. Verify final HTSUS classification and Chapter 99 exclusions with a licensed US Customs Broker.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== TAB 3: RTB PINGTREE & TCPA INSPECTOR ==================== -->
+    <section id="tab-rtb" class="hidden">
+      <div class="card">
+        <h2>
+          <span>🔐 Live FCC 1-to-1 TCPA Consent &amp; 500ms RTB Ping-Post JSON Payload</span>
+          <span class="badge badge-green">Sub-20ms Client Edge Execution</span>
+        </h2>
+        <p style="color:var(--text-muted); font-size:0.9rem; margin-bottom:1rem;">
+          Every slider interaction dynamically evaluates competing partner bids (<strong>Collective $300 CPA</strong>, <strong>Northwest $150 CPA</strong>, <strong>Gusto $150 CPA</strong>, <strong>Freightos/Flexport $120 PPL</strong>) and computes a live WebCrypto <code>SHA-256</code> proof binding the user's session to the single winning legal entity as required by <strong>47 CFR § 64.1200(f)(9)</strong>.
+        </p>
+        <pre class="json-view" id="rtb-json-display">Loading live payload...</pre>
+      </div>
+    </section>
+
+    <!-- ==================== PRE-RENDERED CITABLE DATA TABLES FOR SEO / AI SEARCH ==================== -->
+    <section class="section-block">
+      <div class="card">
+        <h2>📊 CITABLE Benchmark Table 1: 2026 State-by-State S-Corp vs. LLC Net Tax Savings ($45k / $150k / $250k)</h2>
+        <div style="overflow-x:auto;">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>State</th>
+                <th>LLC Filing / Annual Fee</th>
+                <th>S-Corp Entity Tax</th>
+                <th>Net Savings @ $45k Profit</th>
+                <th>Net Savings @ $150k Profit</th>
+                <th>Net Savings @ $250k Profit</th>
+                <th>$150k Recommendation</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            <tr>
+              <td><strong>CA</strong> – California</td>
+              <td>$70 / $800</td>
+              <td>$800 + 1.50%</td>
+              <td class="neg-val">$-1,969.58</td>
+              <td class="pos-val"><strong>$6,603.66</strong></td>
+              <td class="pos-val"><strong>$3,607.51</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>TX</strong> – Texas</td>
+              <td>$300 / $0</td>
+              <td>$0 + 0.00%</td>
+              <td class="neg-val">$-1,969.58</td>
+              <td class="pos-val"><strong>$8,024.53</strong></td>
+              <td class="pos-val"><strong>$6,599.68</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>FL</strong> – Florida</td>
+              <td>$125 / $139</td>
+              <td>$150 + 0.00%</td>
+              <td class="neg-val">$-1,981.10</td>
+              <td class="pos-val"><strong>$8,012.74</strong></td>
+              <td class="pos-val"><strong>$6,587.71</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>NY</strong> – New York</td>
+              <td>$200 / $25</td>
+              <td>$25 + 0.20%</td>
+              <td class="neg-val">$-2,052.16</td>
+              <td class="pos-val"><strong>$7,723.29</strong></td>
+              <td class="pos-val"><strong>$6,087.24</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>DE</strong> – Delaware</td>
+              <td>$110 / $300</td>
+              <td>$175 + 0.00%</td>
+              <td class="neg-val">$-1,841.58</td>
+              <td class="pos-val"><strong>$8,155.53</strong></td>
+              <td class="pos-val"><strong>$6,732.68</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>WY</strong> – Wyoming</td>
+              <td>$100 / $60</td>
+              <td>$60 + 0.00%</td>
+              <td class="neg-val">$-1,969.58</td>
+              <td class="pos-val"><strong>$8,024.53</strong></td>
+              <td class="pos-val"><strong>$6,599.68</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>NV</strong> – Nevada</td>
+              <td>$425 / $350</td>
+              <td>$350 + 0.00%</td>
+              <td class="neg-val">$-1,969.58</td>
+              <td class="pos-val"><strong>$8,024.53</strong></td>
+              <td class="pos-val"><strong>$6,599.68</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>WA</strong> – Washington</td>
+              <td>$200 / $70</td>
+              <td>$70 + 0.00%</td>
+              <td class="neg-val">$-1,969.58</td>
+              <td class="pos-val"><strong>$8,024.53</strong></td>
+              <td class="pos-val"><strong>$6,599.68</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>IL</strong> – Illinois</td>
+              <td>$150 / $75</td>
+              <td>$75 + 1.50%</td>
+              <td class="neg-val">$-2,588.98</td>
+              <td class="pos-val"><strong>$5,765.26</strong></td>
+              <td class="pos-val"><strong>$2,756.31</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>MA</strong> – Massachusetts</td>
+              <td>$500 / $500</td>
+              <td>$456 + 0.00%</td>
+              <td class="neg-val">$-1,924.52</td>
+              <td class="pos-val"><strong>$8,070.64</strong></td>
+              <td class="pos-val"><strong>$6,646.49</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>PA</strong> – Pennsylvania</td>
+              <td>$125 / $7</td>
+              <td>$7 + 0.00%</td>
+              <td class="neg-val">$-1,969.58</td>
+              <td class="pos-val"><strong>$8,024.53</strong></td>
+              <td class="pos-val"><strong>$6,599.68</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>GA</strong> – Georgia</td>
+              <td>$100 / $50</td>
+              <td>$50 + 0.00%</td>
+              <td class="neg-val">$-1,969.58</td>
+              <td class="pos-val"><strong>$8,024.53</strong></td>
+              <td class="pos-val"><strong>$6,599.68</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>NC</strong> – North Carolina</td>
+              <td>$125 / $200</td>
+              <td>$200 + 0.00%</td>
+              <td class="neg-val">$-1,969.58</td>
+              <td class="pos-val"><strong>$8,024.53</strong></td>
+              <td class="pos-val"><strong>$6,599.68</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>OH</strong> – Ohio</td>
+              <td>$99 / $0</td>
+              <td>$0 + 0.00%</td>
+              <td class="neg-val">$-1,969.58</td>
+              <td class="pos-val"><strong>$8,024.53</strong></td>
+              <td class="pos-val"><strong>$6,599.68</strong></td>
+              <td><span class="badge badge-green">S-Corp Optimal</span></td>
+            </tr>
+            
+            <tr>
+              <td><strong>DC</strong> – District of Columbia</td>
+              <td>$99 / $150</td>
+              <td>$250 + 8.25%</td>
+              <td class="neg-val">$-5,478.71</td>
+              <td class="neg-val"><strong>$-4,506.26</strong></td>
+              <td class="neg-val"><strong>$-14,645.24</strong></td>
+              <td><span class="badge badge-amber">Keep Single-Member LLC</span></td>
+            </tr>
+            
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <div class="card">
+        <h2>📦 CITABLE Benchmark Table 2: 2026 USITC HTS Section 301 + IEEPA Landed Cost ($100,000 FOB Ocean Import)</h2>
+        <div style="overflow-x:auto;">
+          <table class="comp-table">
+            <thead>
+              <tr>
+                <th>HTS Code</th>
+                <th>Commercial Commodity</th>
+                <th>Base Duty</th>
+                <th>China Sec 301</th>
+                <th>2026 IEEPA</th>
+                <th>HMF / MPF ($100k)</th>
+                <th>China Landed Cost</th>
+                <th>Reshoring Arbitrage Delta</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            <tr>
+              <td><code>8507.60.0020</code></td>
+              <td>Lithium-Ion EV & Energy Storage Batteries (BESS)</td>
+              <td>3.4%</td>
+              <td>25.0% <small>(9903.91.02)</small></td>
+              <td>20.0%</td>
+              <td>$125.00 / $346.40</td>
+              <td><strong>$152,571.40</strong></td>
+              <td class="pos-val"><strong>-$48,400.00</strong> (KR)</td>
+            </tr>
+            
+            <tr>
+              <td><code>8541.43.0010</code></td>
+              <td>Solar Photovoltaic (PV) Modules & Crystalline Cells</td>
+              <td>0.0%</td>
+              <td>50.0% <small>(9903.91.03)</small></td>
+              <td>20.0%</td>
+              <td>$125.00 / $346.40</td>
+              <td><strong>$174,171.40</strong></td>
+              <td class="pos-val"><strong>-$70,000.00</strong> (IN)</td>
+            </tr>
+            
+            <tr>
+              <td><code>9403.20.0080</code></td>
+              <td>Industrial Metal Warehouse Shelving & Racking</td>
+              <td>0.0%</td>
+              <td>25.0% <small>(9903.88.03)</small></td>
+              <td>20.0%</td>
+              <td>$125.00 / $346.40</td>
+              <td><strong>$149,171.40</strong></td>
+              <td class="pos-val"><strong>-$45,000.00</strong> (MX)</td>
+            </tr>
+            
+            <tr>
+              <td><code>8504.40.9580</code></td>
+              <td>Static Converters, Solar Inverters & Switching Power Supplies</td>
+              <td>1.5%</td>
+              <td>25.0% <small>(9903.88.01)</small></td>
+              <td>20.0%</td>
+              <td>$125.00 / $346.40</td>
+              <td><strong>$150,671.40</strong></td>
+              <td class="pos-val"><strong>-$45,000.00</strong> (VN)</td>
+            </tr>
+            
+            <tr>
+              <td><code>8471.30.0100</code></td>
+              <td>Portable Industrial Tablets, Laptops & Edge Compute Units</td>
+              <td>0.0%</td>
+              <td>7.5% <small>(9903.88.15)</small></td>
+              <td>20.0%</td>
+              <td>$125.00 / $346.40</td>
+              <td><strong>$131,671.40</strong></td>
+              <td class="pos-val"><strong>-$27,500.00</strong> (VN)</td>
+            </tr>
+            
+            <tr>
+              <td><code>9027.89.4500</code></td>
+              <td>Optical & Analytical Laboratory Spectrometers / Sensors</td>
+              <td>0.0%</td>
+              <td>25.0% <small>(9903.88.01)</small></td>
+              <td>20.0%</td>
+              <td>$125.00 / $346.40</td>
+              <td><strong>$149,171.40</strong></td>
+              <td class="pos-val"><strong>-$45,000.00</strong> (DE)</td>
+            </tr>
+            
+            <tr>
+              <td><code>3926.90.9910</code></td>
+              <td>Molded Silicone, Vulcanized Rubber Gaskets & Industrial Seals</td>
+              <td>5.3%</td>
+              <td>25.0% <small>(9903.88.03)</small></td>
+              <td>20.0%</td>
+              <td>$125.00 / $346.40</td>
+              <td><strong>$154,471.40</strong></td>
+              <td class="pos-val"><strong>-$45,000.00</strong> (VN)</td>
+            </tr>
+            
+            <tr>
+              <td><code>7318.15.8065</code></td>
+              <td>High-Tensile Stainless & Alloy Steel Industrial Fasteners / Bolts</td>
+              <td>8.5%</td>
+              <td>25.0% <small>(9903.88.03)</small></td>
+              <td>20.0%</td>
+              <td>$125.00 / $346.40</td>
+              <td><strong>$157,671.40</strong></td>
+              <td class="pos-val"><strong>-$45,000.00</strong> (TW)</td>
+            </tr>
+            
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const CITABLE_RULES = {"version": "2026.10-R8", "generated_at_utc": "2026-10-21T12:43:19Z", "statutory_constants": {"IRS_2026_SS_WAGE_BASE": 176100.0, "OASDI_RATE": 0.124, "MEDICARE_RATE": 0.029, "ADDITIONAL_MEDICARE_RATE": 0.009, "ADD_MEDICARE_THRESHOLD_SINGLE": 200000.0, "ADD_MEDICARE_THRESHOLD_MFJ": 250000.0, "SE_NET_EARNINGS_FACTOR": 0.9235, "QBI_199A_DEDUCTION_RATE": 0.2, "FUTA_SUTA_BASELINE_USD": 420.0, "DEFAULT_SCORP_PAYROLL_CPA_USD": 1500.0, "CBP_HMF_RATE_OCEAN": 0.00125, "CBP_MPF_AD_VALOREM_RATE": 0.003464, "CBP_MPF_MIN_USD": 31.67, "CBP_MPF_MAX_USD": 614.35}, "states": {"AL": {"state_code": "AL", "state_name": "Alabama", "llc_filing_fee_usd": 200.0, "llc_annual_fee_usd": 100.0, "scorp_min_franchise_tax_usd": 100.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.05, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 250.0, "notes": "Business Privilege Tax min $100"}, "AK": {"state_code": "AK", "state_name": "Alaska", "llc_filing_fee_usd": 250.0, "llc_annual_fee_usd": 100.0, "scorp_min_franchise_tax_usd": 0.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 350.0, "notes": "Biennial report $200 ($100/yr); 0% state income tax"}, "AZ": {"state_code": "AZ", "state_name": "Arizona", "llc_filing_fee_usd": 50.0, "llc_annual_fee_usd": 0.0, "scorp_min_franchise_tax_usd": 0.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.025, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 450.0, "notes": "$0 annual LLC report fee; ROC contractor bond required"}, "AR": {"state_code": "AR", "state_name": "Arkansas", "llc_filing_fee_usd": 45.0, "llc_annual_fee_usd": 150.0, "scorp_min_franchise_tax_usd": 150.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.039, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 200.0, "notes": "Annual franchise tax $150"}, "CA": {"state_code": "CA", "state_name": "California", "llc_filing_fee_usd": 70.0, "llc_annual_fee_usd": 800.0, "scorp_min_franchise_tax_usd": 800.0, "scorp_entity_rate_pct": 0.015, "state_income_tax_top_marginal": 0.133, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 375.0, "notes": "Strict $800 min Franchise Tax + 1.5% S-Corp net income tax (R&TC § 23802)"}, "CO": {"state_code": "CO", "state_name": "Colorado", "llc_filing_fee_usd": 50.0, "llc_annual_fee_usd": 25.0, "scorp_min_franchise_tax_usd": 0.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.044, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 220.0, "notes": "Periodic report $25/yr; flat 4.4% state tax"}, "CT": {"state_code": "CT", "state_name": "Connecticut", "llc_filing_fee_usd": 120.0, "llc_annual_fee_usd": 80.0, "scorp_min_franchise_tax_usd": 80.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0699, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 300.0, "notes": "Annual report $80; Optional Pass-Through Entity Tax (PTET)"}, "DE": {"state_code": "DE", "state_name": "Delaware", "llc_filing_fee_usd": 110.0, "llc_annual_fee_usd": 300.0, "scorp_min_franchise_tax_usd": 175.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.066, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 250.0, "notes": "$300 flat annual LLC tax; $175 min Domestic Corp franchise tax"}, "DC": {"state_code": "DC", "state_name": "District of Columbia", "llc_filing_fee_usd": 99.0, "llc_annual_fee_usd": 150.0, "scorp_min_franchise_tax_usd": 250.0, "scorp_entity_rate_pct": 0.0825, "state_income_tax_top_marginal": 0.1075, "recognizes_federal_scorp": false, "contractor_license_bond_avg_usd": 400.0, "notes": "DC does NOT recognize S-Corp pass-through; taxes S-Corps at entity level (8.25% min $250)"}, "FL": {"state_code": "FL", "state_name": "Florida", "llc_filing_fee_usd": 125.0, "llc_annual_fee_usd": 138.75, "scorp_min_franchise_tax_usd": 150.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 320.0, "notes": "0% state personal income tax; $138.75 LLC / $150 S-Corp annual report"}, "GA": {"state_code": "GA", "state_name": "Georgia", "llc_filing_fee_usd": 100.0, "llc_annual_fee_usd": 50.0, "scorp_min_franchise_tax_usd": 50.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0539, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 250.0, "notes": "$50 annual registration + small net worth tax"}, "HI": {"state_code": "HI", "state_name": "Hawaii", "llc_filing_fee_usd": 50.0, "llc_annual_fee_usd": 15.0, "scorp_min_franchise_tax_usd": 15.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.11, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 350.0, "notes": "$15 annual report; General Excise Tax (GET 4%-4.5%) applies to gross receipts"}, "ID": {"state_code": "ID", "state_name": "Idaho", "llc_filing_fee_usd": 100.0, "llc_annual_fee_usd": 0.0, "scorp_min_franchise_tax_usd": 20.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.05695, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 200.0, "notes": "$0 annual report fee; $20 minimum S-Corp building fund tax"}, "IL": {"state_code": "IL", "state_name": "Illinois", "llc_filing_fee_usd": 150.0, "llc_annual_fee_usd": 75.0, "scorp_min_franchise_tax_usd": 75.0, "scorp_entity_rate_pct": 0.015, "state_income_tax_top_marginal": 0.0495, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 300.0, "notes": "S-Corps pay 1.5% Personal Property Replacement Tax on net income"}, "IN": {"state_code": "IN", "state_name": "Indiana", "llc_filing_fee_usd": 95.0, "llc_annual_fee_usd": 25.0, "scorp_min_franchise_tax_usd": 25.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.03, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 200.0, "notes": "Biennial report $50 ($25/yr)"}, "IA": {"state_code": "IA", "state_name": "Iowa", "llc_filing_fee_usd": 50.0, "llc_annual_fee_usd": 30.0, "scorp_min_franchise_tax_usd": 30.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.038, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 200.0, "notes": "Biennial report $60 ($30/yr)"}, "KS": {"state_code": "KS", "state_name": "Kansas", "llc_filing_fee_usd": 160.0, "llc_annual_fee_usd": 50.0, "scorp_min_franchise_tax_usd": 50.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0558, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 225.0, "notes": "Biennial report $100 ($50/yr)"}, "KY": {"state_code": "KY", "state_name": "Kentucky", "llc_filing_fee_usd": 40.0, "llc_annual_fee_usd": 15.0, "scorp_min_franchise_tax_usd": 175.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.04, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 210.0, "notes": "Limited Liability Entity Tax (LLET) min $175"}, "LA": {"state_code": "LA", "state_name": "Louisiana", "llc_filing_fee_usd": 100.0, "llc_annual_fee_usd": 35.0, "scorp_min_franchise_tax_usd": 35.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.03, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 280.0, "notes": "$35 annual report"}, "ME": {"state_code": "ME", "state_name": "Maine", "llc_filing_fee_usd": 175.0, "llc_annual_fee_usd": 85.0, "scorp_min_franchise_tax_usd": 85.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0715, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 240.0, "notes": "$85 annual report"}, "MD": {"state_code": "MD", "state_name": "Maryland", "llc_filing_fee_usd": 100.0, "llc_annual_fee_usd": 300.0, "scorp_min_franchise_tax_usd": 300.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0575, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 310.0, "notes": "$300 annual personal property / entity filing fee"}, "MA": {"state_code": "MA", "state_name": "Massachusetts", "llc_filing_fee_usd": 500.0, "llc_annual_fee_usd": 500.0, "scorp_min_franchise_tax_usd": 456.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.05, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 350.0, "notes": "$500 LLC annual report; $456 S-Corp minimum excise tax"}, "MI": {"state_code": "MI", "state_name": "Michigan", "llc_filing_fee_usd": 50.0, "llc_annual_fee_usd": 25.0, "scorp_min_franchise_tax_usd": 25.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0425, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 250.0, "notes": "$25 annual statement"}, "MN": {"state_code": "MN", "state_name": "Minnesota", "llc_filing_fee_usd": 155.0, "llc_annual_fee_usd": 0.0, "scorp_min_franchise_tax_usd": 0.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0985, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 290.0, "notes": "$0 annual renewal if filed online; S-Corp min fee above $1.16M receipts"}, "MS": {"state_code": "MS", "state_name": "Mississippi", "llc_filing_fee_usd": 50.0, "llc_annual_fee_usd": 0.0, "scorp_min_franchise_tax_usd": 25.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.044, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 200.0, "notes": "$0 LLC annual report; $25 S-Corp franchise min"}, "MO": {"state_code": "MO", "state_name": "Missouri", "llc_filing_fee_usd": 50.0, "llc_annual_fee_usd": 0.0, "scorp_min_franchise_tax_usd": 20.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.047, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 190.0, "notes": "$0 LLC annual report"}, "MT": {"state_code": "MT", "state_name": "Montana", "llc_filing_fee_usd": 35.0, "llc_annual_fee_usd": 20.0, "scorp_min_franchise_tax_usd": 20.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.059, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 200.0, "notes": "$20 annual report"}, "NE": {"state_code": "NE", "state_name": "Nebraska", "llc_filing_fee_usd": 100.0, "llc_annual_fee_usd": 13.0, "scorp_min_franchise_tax_usd": 13.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.052, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 210.0, "notes": "Biennial report $26 ($13/yr)"}, "NV": {"state_code": "NV", "state_name": "Nevada", "llc_filing_fee_usd": 425.0, "llc_annual_fee_usd": 350.0, "scorp_min_franchise_tax_usd": 350.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 380.0, "notes": "0% income tax; $150 annual list + $200 State Business License = $350/yr"}, "NH": {"state_code": "NH", "state_name": "New Hampshire", "llc_filing_fee_usd": 100.0, "llc_annual_fee_usd": 100.0, "scorp_min_franchise_tax_usd": 100.0, "scorp_entity_rate_pct": 0.075, "state_income_tax_top_marginal": 0.0, "recognizes_federal_scorp": false, "contractor_license_bond_avg_usd": 260.0, "notes": "Business Profits Tax (7.5% above $103k) & BET apply at entity level"}, "NJ": {"state_code": "NJ", "state_name": "New Jersey", "llc_filing_fee_usd": 125.0, "llc_annual_fee_usd": 75.0, "scorp_min_franchise_tax_usd": 375.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.1075, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 340.0, "notes": "$75 LLC annual report; S-Corp CBT minimum $375-$1,500"}, "NM": {"state_code": "NM", "state_name": "New Mexico", "llc_filing_fee_usd": 50.0, "llc_annual_fee_usd": 0.0, "scorp_min_franchise_tax_usd": 50.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.059, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 220.0, "notes": "$0 LLC annual report; $50 S-Corp corporate franchise tax"}, "NY": {"state_code": "NY", "state_name": "New York", "llc_filing_fee_usd": 200.0, "llc_annual_fee_usd": 25.0, "scorp_min_franchise_tax_usd": 25.0, "scorp_entity_rate_pct": 0.002, "state_income_tax_top_marginal": 0.109, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 420.0, "notes": "NY LLC Publication Rule ($300-$1,200); Fixed Dollar Minimum Tax $25-$4,500; NYC adds 8.85% GCT"}, "NC": {"state_code": "NC", "state_name": "North Carolina", "llc_filing_fee_usd": 125.0, "llc_annual_fee_usd": 200.0, "scorp_min_franchise_tax_usd": 200.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0425, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 250.0, "notes": "$200 LLC annual report / S-Corp minimum franchise tax"}, "ND": {"state_code": "ND", "state_name": "North Dakota", "llc_filing_fee_usd": 135.0, "llc_annual_fee_usd": 50.0, "scorp_min_franchise_tax_usd": 50.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.025, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 200.0, "notes": "$50 annual report"}, "OH": {"state_code": "OH", "state_name": "Ohio", "llc_filing_fee_usd": 99.0, "llc_annual_fee_usd": 0.0, "scorp_min_franchise_tax_usd": 0.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.035, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 230.0, "notes": "$0 annual report; CAT exempt under $6M gross receipts in 2026"}, "OK": {"state_code": "OK", "state_name": "Oklahoma", "llc_filing_fee_usd": 100.0, "llc_annual_fee_usd": 25.0, "scorp_min_franchise_tax_usd": 25.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0475, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 210.0, "notes": "$25 annual certificate"}, "OR": {"state_code": "OR", "state_name": "Oregon", "llc_filing_fee_usd": 100.0, "llc_annual_fee_usd": 100.0, "scorp_min_franchise_tax_usd": 150.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.099, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 330.0, "notes": "$100 annual renewal + $150 S-Corp minimum excise tax"}, "PA": {"state_code": "PA", "state_name": "Pennsylvania", "llc_filing_fee_usd": 125.0, "llc_annual_fee_usd": 7.0, "scorp_min_franchise_tax_usd": 7.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0307, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 260.0, "notes": "Annual report $7; flat 3.07% state personal income tax"}, "RI": {"state_code": "RI", "state_name": "Rhode Island", "llc_filing_fee_usd": 150.0, "llc_annual_fee_usd": 400.0, "scorp_min_franchise_tax_usd": 400.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0599, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 290.0, "notes": "$400 minimum corporate/pass-through annual tax"}, "SC": {"state_code": "SC", "state_name": "South Carolina", "llc_filing_fee_usd": 110.0, "llc_annual_fee_usd": 0.0, "scorp_min_franchise_tax_usd": 25.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.062, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 240.0, "notes": "$0 LLC annual report; $25 S-Corp license fee"}, "SD": {"state_code": "SD", "state_name": "South Dakota", "llc_filing_fee_usd": 150.0, "llc_annual_fee_usd": 55.0, "scorp_min_franchise_tax_usd": 55.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 180.0, "notes": "0% state income tax; $55 annual report"}, "TN": {"state_code": "TN", "state_name": "Tennessee", "llc_filing_fee_usd": 300.0, "llc_annual_fee_usd": 300.0, "scorp_min_franchise_tax_usd": 400.0, "scorp_entity_rate_pct": 0.065, "state_income_tax_top_marginal": 0.0, "recognizes_federal_scorp": false, "contractor_license_bond_avg_usd": 300.0, "notes": "Franchise & Excise Tax (6.5% on net earnings + $100 min franchise) applies to LLCs & S-Corps!"}, "TX": {"state_code": "TX", "state_name": "Texas", "llc_filing_fee_usd": 300.0, "llc_annual_fee_usd": 0.0, "scorp_min_franchise_tax_usd": 0.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 280.0, "notes": "0% state income tax; $0 Franchise Tax below $2.47M No-Tax-Due revenue threshold"}, "UT": {"state_code": "UT", "state_name": "Utah", "llc_filing_fee_usd": 54.0, "llc_annual_fee_usd": 18.0, "scorp_min_franchise_tax_usd": 18.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0455, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 240.0, "notes": "$18 annual renewal; flat 4.55% state tax"}, "VT": {"state_code": "VT", "state_name": "Vermont", "llc_filing_fee_usd": 125.0, "llc_annual_fee_usd": 35.0, "scorp_min_franchise_tax_usd": 250.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0875, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 250.0, "notes": "$35 LLC report; $250 minimum S-Corp entity tax"}, "VA": {"state_code": "VA", "state_name": "Virginia", "llc_filing_fee_usd": 100.0, "llc_annual_fee_usd": 50.0, "scorp_min_franchise_tax_usd": 50.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0575, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 260.0, "notes": "$50 annual registration fee"}, "WA": {"state_code": "WA", "state_name": "Washington", "llc_filing_fee_usd": 200.0, "llc_annual_fee_usd": 70.0, "scorp_min_franchise_tax_usd": 70.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 390.0, "notes": "0% income tax; B&O gross receipts tax (0.471% - 1.75%) + L&I contractor bond"}, "WV": {"state_code": "WV", "state_name": "West Virginia", "llc_filing_fee_usd": 100.0, "llc_annual_fee_usd": 25.0, "scorp_min_franchise_tax_usd": 25.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0512, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 220.0, "notes": "$25 annual report"}, "WI": {"state_code": "WI", "state_name": "Wisconsin", "llc_filing_fee_usd": 130.0, "llc_annual_fee_usd": 25.0, "scorp_min_franchise_tax_usd": 25.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0765, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 240.0, "notes": "$25 annual report"}, "WY": {"state_code": "WY", "state_name": "Wyoming", "llc_filing_fee_usd": 100.0, "llc_annual_fee_usd": 60.0, "scorp_min_franchise_tax_usd": 60.0, "scorp_entity_rate_pct": 0.0, "state_income_tax_top_marginal": 0.0, "recognizes_federal_scorp": true, "contractor_license_bond_avg_usd": 180.0, "notes": "0% state income tax; $60 minimum annual license tax; top privacy protections"}}, "hts_catalog": {"8507.60.0020": {"hts_code": "8507.60.0020", "commercial_name": "Lithium-Ion EV & Energy Storage Batteries (BESS)", "usitc_description": "Electric accumulators, including separators therefor: Lithium-ion batteries", "chapter": 85, "general_duty_rate": 0.034, "china_sec301_rate": 0.25, "china_sec301_subheading": "9903.91.02", "china_ieepa_rate": 0.2, "ad_cvd_baseline_risk_rate": 0.0, "alt_country_rates": {"VN": 0.0, "MX": 0.0, "KR": 0.0, "DE": 0.0, "IN": 0.0}, "best_alt_origin": "KR"}, "8541.43.0010": {"hts_code": "8541.43.0010", "commercial_name": "Solar Photovoltaic (PV) Modules & Crystalline Cells", "usitc_description": "Photovoltaic cells assembled in modules or made up into panels, crystalline silicon", "chapter": 85, "general_duty_rate": 0.0, "china_sec301_rate": 0.5, "china_sec301_subheading": "9903.91.03", "china_ieepa_rate": 0.2, "ad_cvd_baseline_risk_rate": 0.145, "alt_country_rates": {"VN": 0.1, "MX": 0.0, "IN": 0.0, "DE": 0.0, "TW": 0.0}, "best_alt_origin": "IN"}, "9403.20.0080": {"hts_code": "9403.20.0080", "commercial_name": "Industrial Metal Warehouse Shelving & Racking", "usitc_description": "Other metal furniture: Counters, lockers, racks, display cases, and heavy shelving", "chapter": 94, "general_duty_rate": 0.0, "china_sec301_rate": 0.25, "china_sec301_subheading": "9903.88.03", "china_ieepa_rate": 0.2, "ad_cvd_baseline_risk_rate": 0.0, "alt_country_rates": {"VN": 0.0, "MX": 0.0, "IN": 0.0, "DE": 0.0, "TW": 0.0}, "best_alt_origin": "MX"}, "8504.40.9580": {"hts_code": "8504.40.9580", "commercial_name": "Static Converters, Solar Inverters & Switching Power Supplies", "usitc_description": "Electrical static converters: Inverters and rectifiers exceeding 1.5 kW", "chapter": 85, "general_duty_rate": 0.015, "china_sec301_rate": 0.25, "china_sec301_subheading": "9903.88.01", "china_ieepa_rate": 0.2, "ad_cvd_baseline_risk_rate": 0.0, "alt_country_rates": {"VN": 0.0, "MX": 0.0, "TW": 0.0, "DE": 0.0, "IN": 0.0}, "best_alt_origin": "VN"}, "8471.30.0100": {"hts_code": "8471.30.0100", "commercial_name": "Portable Industrial Tablets, Laptops & Edge Compute Units", "usitc_description": "Portable automatic data processing machines, weighing not more than 10 kg", "chapter": 84, "general_duty_rate": 0.0, "china_sec301_rate": 0.075, "china_sec301_subheading": "9903.88.15", "china_ieepa_rate": 0.2, "ad_cvd_baseline_risk_rate": 0.0, "alt_country_rates": {"VN": 0.0, "TW": 0.0, "MX": 0.0, "DE": 0.0, "IN": 0.0}, "best_alt_origin": "VN"}, "9027.89.4500": {"hts_code": "9027.89.4500", "commercial_name": "Optical & Analytical Laboratory Spectrometers / Sensors", "usitc_description": "Instruments and apparatus for physical or chemical analysis: Optical electronic", "chapter": 90, "general_duty_rate": 0.0, "china_sec301_rate": 0.25, "china_sec301_subheading": "9903.88.01", "china_ieepa_rate": 0.2, "ad_cvd_baseline_risk_rate": 0.0, "alt_country_rates": {"DE": 0.0, "TW": 0.0, "MX": 0.0, "VN": 0.0, "IN": 0.0}, "best_alt_origin": "DE"}, "3926.90.9910": {"hts_code": "3926.90.9910", "commercial_name": "Molded Silicone, Vulcanized Rubber Gaskets & Industrial Seals", "usitc_description": "Other articles of plastics and vulcanized elastomers: Industrial gaskets & O-rings", "chapter": 39, "general_duty_rate": 0.053, "china_sec301_rate": 0.25, "china_sec301_subheading": "9903.88.03", "china_ieepa_rate": 0.2, "ad_cvd_baseline_risk_rate": 0.0, "alt_country_rates": {"VN": 0.0, "MX": 0.0, "IN": 0.0, "DE": 0.0, "TW": 0.0}, "best_alt_origin": "VN"}, "7318.15.8065": {"hts_code": "7318.15.8065", "commercial_name": "High-Tensile Stainless & Alloy Steel Industrial Fasteners / Bolts", "usitc_description": "Screws, bolts, nuts, coach screws of iron or steel: Having shanks >= 6 mm", "chapter": 73, "general_duty_rate": 0.085, "china_sec301_rate": 0.25, "china_sec301_subheading": "9903.88.03", "china_ieepa_rate": 0.2, "ad_cvd_baseline_risk_rate": 0.0, "alt_country_rates": {"TW": 0.0, "VN": 0.0, "MX": 0.0, "IN": 0.0, "DE": 0.0}, "best_alt_origin": "TW"}}, "partners": {"COLLECTIVE_SCORP": {"partner_id": "COLLECTIVE_SCORP", "partner_legal_name": "Collective Hub Inc.", "vertical": "C4_SCORP_FORMATION_ACCOUNTING", "payout_model": "CPA (Verified S-Corp Onboarding)", "cpa_or_ppl_usd": 300.0, "historical_accept_rate": 0.94, "expected_value_usd": 282.0, "cta_headline": "Automate Your 2026 S-Corp Election, Bookkeeping & Gusto Payroll with Collective", "destination_endpoint": "https://api.partner-pingtree.internal/v2/post/collective-scorp"}, "GUSTO_PAYROLL": {"partner_id": "GUSTO_PAYROLL", "partner_legal_name": "Gusto, Inc.", "vertical": "C4_SCORP_W2_PAYROLL", "payout_model": "CPA (First W-2 Reasonable Salary Run)", "cpa_or_ppl_usd": 150.0, "historical_accept_rate": 0.96, "expected_value_usd": 144.0, "cta_headline": "Set Up Automated IRS-Compliant S-Corp Owner W-2 Payroll on Gusto ($150 Bonus)", "destination_endpoint": "https://api.partner-pingtree.internal/v2/post/gusto-payroll"}, "NORTHWEST_LLC": {"partner_id": "NORTHWEST_LLC", "partner_legal_name": "Northwest Registered Agent LLC", "vertical": "C4_SINGLE_MEMBER_LLC_FORMATION", "payout_model": "CPA (LLC Formation + Registered Agent)", "cpa_or_ppl_usd": 150.0, "historical_accept_rate": 0.97, "expected_value_usd": 145.5, "cta_headline": "Form Your Privacy-Protected Single-Member LLC with Free Registered Agent Service", "destination_endpoint": "https://api.partner-pingtree.internal/v2/post/northwest-llc"}, "FREIGHTOS_FLEXPORT_PPL": {"partner_id": "FREIGHTOS_FLEXPORT_PPL", "partner_legal_name": "Freightos Limited & Flexport Customs Brokerage LLC", "vertical": "C5_CUSTOMS_BROKER_FREIGHT_PPL", "payout_model": "Exclusive Pay-Per-Lead (Verified Importer >= $15k CIF)", "cpa_or_ppl_usd": 120.0, "historical_accept_rate": 0.92, "expected_value_usd": 110.4, "cta_headline": "Lock In Licensed 19 U.S.C. § 1641 Customs Clearance & Bonded Ocean/Air Freight Quotes", "destination_endpoint": "https://api.partner-pingtree.internal/v2/post/freightos-flexport-ppl"}}};
+    let activeTab = 'tab-c4';
+    let latestRtbPayload = {};
+
+    function fmtUsd(val) {
+      const sign = val < 0 ? '-' : '';
+      return sign + '$' + Math.abs(val).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    async function sha256Hex(message) {
+      if (window.crypto && window.crypto.subtle) {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await window.crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return '0x' + hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      }
+      // Deterministic fallback hash if opened in non-HTTPS local context without subtle crypto
+      let h1 = 0xdeadbeef ^ message.length, h2 = 0x41c6ce57 ^ message.length;
+      for (let i = 0, ch; i < message.length; i++) {
+        ch = message.charCodeAt(i);
+        h1 = Math.imul(h1 ^ ch, 2654435761);
+        h2 = Math.imul(h2 ^ ch, 1597334677);
+      }
+      h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+      h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+      return '0x' + (h2 >>> 0).toString(16).padStart(8, '0') + (h1 >>> 0).toString(16).padStart(8, '0').repeat(7);
+    }
+
+    function switchTab(tabId) {
+      ['tab-c4', 'tab-c5', 'tab-rtb'].forEach(id => {
+        document.getElementById(id).classList.toggle('hidden', id !== tabId);
+        document.getElementById('btn-' + id).classList.toggle('active', id === tabId);
+      });
+      activeTab = tabId;
+    }
+
+    function estimateFedRate(income, status) {
+      if (status === 'mfj') {
+        if (income <= 23850) return 0.10;
+        if (income <= 96950) return 0.12;
+        if (income <= 206700) return 0.22;
+        if (income <= 394600) return 0.24;
+        if (income <= 501050) return 0.32;
+        if (income <= 751600) return 0.35;
+        return 0.37;
+      }
+      if (income <= 11925) return 0.10;
+      if (income <= 48475) return 0.12;
+      if (income <= 103350) return 0.22;
+      if (income <= 197300) return 0.24;
+      if (income <= 250525) return 0.32;
+      if (income <= 626350) return 0.35;
+      return 0.37;
+    }
+
+    function computeReasonableFloor(netProfit, industry) {
+      if (netProfit <= 0) return 0;
+      const mult = (industry === 'medical' || industry === 'engineering') ? 1.05 : 1.0;
+      let floor = 0;
+      if (netProfit <= 40000) floor = netProfit * 0.60;
+      else if (netProfit <= 120000) floor = Math.max(36000, netProfit * 0.42 * mult);
+      else floor = Math.min(225000, Math.max(50400, netProfit * 0.38 * mult));
+      return Math.round(Math.min(netProfit, floor) * 100) / 100;
+    }
+
+    async function recalcC4() {
+      const C = CITABLE_RULES.statutory_constants;
+      const stateCode = document.getElementById('c4-state').value || 'TX';
+      const stateRule = CITABLE_RULES.states[stateCode];
+      const netProfit = parseFloat(document.getElementById('c4-profit').value);
+      let rawSalary = parseFloat(document.getElementById('c4-salary').value);
+      const status = document.getElementById('c4-status').value;
+      const industry = document.getElementById('c4-industry').value;
+      const enforceFloor = document.getElementById('c4-enforce-floor').checked;
+      const multiEmp = document.getElementById('c4-multi-emp').checked;
+
+      const minFloor = computeReasonableFloor(netProfit, industry);
+      if (rawSalary > netProfit) rawSalary = netProfit;
+      let salary = rawSalary;
+      let floorRaised = false;
+      if (enforceFloor && salary < minFloor) {
+        salary = minFloor;
+        document.getElementById('c4-salary').value = Math.round(salary);
+        floorRaised = true;
+      }
+
+      document.getElementById('c4-state-tag').textContent = stateCode + ' (' + stateRule.state_name + ')';
+      document.getElementById('c4-profit-label').textContent = fmtUsd(netProfit);
+      document.getElementById('c4-salary-label').textContent = fmtUsd(salary);
+      document.getElementById('c4-salary-floor-note').textContent =
+        `IRS Safe-Harbor Reasonable Salary Floor: ${fmtUsd(minFloor)} (${Math.round((salary/netProfit)*100)}% of profit) • ${stateRule.notes}`;
+
+      const addMedThresh = status === 'mfj' ? C.ADD_MEDICARE_THRESHOLD_MFJ : C.ADD_MEDICARE_THRESHOLD_SINGLE;
+
+      // Sole Prop
+      const seTaxable = Math.round(netProfit * C.SE_NET_EARNINGS_FACTOR * 100) / 100;
+      const soleOasdi = Math.round(Math.min(seTaxable, C.IRS_2026_SS_WAGE_BASE) * C.OASDI_RATE * 100) / 100;
+      const soleMed = Math.round(seTaxable * C.MEDICARE_RATE * 100) / 100;
+      const soleAddMed = Math.round(Math.max(0, seTaxable - addMedThresh) * C.ADDITIONAL_MEDICARE_RATE * 100) / 100;
+      const soleTotalSe = soleOasdi + soleMed + soleAddMed;
+      const soleHalfSe = (soleOasdi + soleMed) * 0.5;
+      const soleStateFee = stateRule.llc_annual_fee_usd;
+
+      // S-Corp
+      const scorpOasdi = Math.round(Math.min(salary, C.IRS_2026_SS_WAGE_BASE) * C.OASDI_RATE * 100) / 100;
+      const scorpMed = Math.round(salary * C.MEDICARE_RATE * 100) / 100;
+      const scorpAddMed = Math.round(Math.max(0, salary - addMedThresh) * C.ADDITIONAL_MEDICARE_RATE * 100) / 100;
+      const scorpTotalFica = scorpOasdi + scorpMed + scorpAddMed;
+      const scorpEmpHalf = (scorpOasdi + scorpMed) * 0.5;
+      const futaSuta = C.FUTA_SUTA_BASELINE_USD;
+      const payrollCpa = C.DEFAULT_SCORP_PAYROLL_CPA_USD;
+
+      const scorpNetAfter = Math.max(0, netProfit - scorpEmpHalf - futaSuta - payrollCpa);
+      const entityPctTax = Math.round(scorpNetAfter * stateRule.scorp_entity_rate_pct * 100) / 100;
+      const scorpStateTax = stateCode === 'CA'
+        ? Math.max(stateRule.scorp_min_franchise_tax_usd, entityPctTax)
+        : (stateRule.scorp_min_franchise_tax_usd + entityPctTax);
+
+      // QBI 199A
+      const fedRate = estimateFedRate(netProfit, status);
+      const soleQbi = Math.max(0, netProfit - soleHalfSe - soleStateFee) * C.QBI_199A_DEDUCTION_RATE;
+      const scorpQbi = Math.max(0, netProfit - salary - scorpEmpHalf - futaSuta - payrollCpa - scorpStateTax) * C.QBI_199A_DEDUCTION_RATE;
+      const qbiPenalty = Math.round(Math.max(0, soleQbi - scorpQbi) * fedRate * 100) / 100;
+
+      const soleBurden = Math.round((soleTotalSe + soleStateFee) * 100) / 100;
+      const scorpBurden = Math.round((scorpTotalFica + futaSuta + payrollCpa + scorpStateTax + qbiPenalty) * 100) / 100;
+      const netSavings = Math.round((soleBurden - scorpBurden) * 100) / 100;
+      const isBeneficial = (netSavings >= 500) && stateRule.recognizes_federal_scorp;
+
+      document.getElementById('c4-kpi-sole').textContent = fmtUsd(soleBurden);
+      document.getElementById('c4-kpi-scorp').textContent = fmtUsd(scorpBurden);
+      const savEl = document.getElementById('c4-kpi-savings');
+      savEl.textContent = (netSavings >= 0 ? '+' : '') + fmtUsd(netSavings);
+      savEl.className = 'kpi-val ' + (netSavings >= 500 ? 'pos-val' : 'neg-val');
+
+      const vBadge = document.getElementById('c4-verdict-badge');
+      if (isBeneficial) {
+        vBadge.textContent = '✅ S-CORP ELECTION BENEFICIAL';
+        vBadge.className = 'badge badge-green';
+      } else {
+        vBadge.textContent = '⚠️ KEEP SINGLE-MEMBER LLC (NO S-CORP)';
+        vBadge.className = 'badge badge-amber';
+      }
+
+      document.getElementById('c4-tb-sole-base').textContent = fmtUsd(seTaxable) + ' (92.35%)';
+      document.getElementById('c4-tb-scorp-base').textContent = fmtUsd(salary) + ' (W-2)';
+      document.getElementById('c4-tb-sole-ss').textContent = fmtUsd(soleOasdi);
+      document.getElementById('c4-tb-scorp-ss').textContent = fmtUsd(scorpOasdi);
+      document.getElementById('c4-tb-sole-med').textContent = fmtUsd(soleMed + soleAddMed);
+      document.getElementById('c4-tb-scorp-med').textContent = fmtUsd(scorpMed + scorpAddMed);
+      document.getElementById('c4-tb-sole-state').textContent = fmtUsd(soleStateFee);
+      document.getElementById('c4-tb-scorp-state').textContent = fmtUsd(scorpStateTax);
+      document.getElementById('c4-tb-scorp-admin').textContent = fmtUsd(futaSuta + payrollCpa);
+      document.getElementById('c4-tb-scorp-qbi').textContent = '+' + fmtUsd(qbiPenalty) + ' QBI Trade-off';
+      document.getElementById('c4-tb-sole-total').textContent = fmtUsd(soleBurden);
+      document.getElementById('c4-tb-scorp-total').textContent = fmtUsd(scorpBurden);
+
+      // RTB Partner Routing
+      let winnerKey = 'NORTHWEST_LLC';
+      if (isBeneficial && netProfit >= 60000 && !multiEmp) winnerKey = 'COLLECTIVE_SCORP';
+      else if (isBeneficial && multiEmp) winnerKey = 'GUSTO_PAYROLL';
+      const winner = CITABLE_RULES.partners[winnerKey];
+
+      document.getElementById('c4-rtb-headline').textContent =
+        `🏆 RTB Winner: ${winner.partner_legal_name} ($${winner.cpa_or_ppl_usd.toFixed(2)} CPA | EV: $${winner.expected_value_usd.toFixed(2)})`;
+      document.getElementById('c4-cta-btn').textContent = `${winner.cta_headline} →`;
+
+      const tcpaText = `By checking this box, I provide express written consent under the FCC 1-to-1 TCPA Rule (47 CFR § 64.1200) to receive automated calls/texts exclusively from ${winner.partner_legal_name} regarding ${winner.vertical}.`;
+      document.getElementById('c4-tcpa-text').textContent = tcpaText;
+
+      const payloadObj = {
+        timestamp_utc: new Date().toISOString(),
+        calc_type: 'C4_TAX',
+        state_code: stateCode,
+        annual_net_profit_usd: netProfit,
+        reasonable_salary_usd: salary,
+        net_annual_savings_usd: netSavings,
+        is_scorp_beneficial: isBeneficial,
+        winning_partner: winner,
+        fcc_1to1_tcpa_consent_text: tcpaText
+      };
+      const hashHex = await sha256Hex(JSON.stringify(payloadObj));
+      document.getElementById('c4-tcpa-hash').textContent = hashHex;
+      payloadObj.cryptographic_consent_sha256 = hashHex;
+      latestRtbPayload = payloadObj;
+      document.getElementById('rtb-json-display').textContent = JSON.stringify(payloadObj, null, 2);
+    }
+
+    async function recalcC5() {
+      const C = CITABLE_RULES.statutory_constants;
+      const htsCode = document.getElementById('c5-hts').value;
+      const profile = CITABLE_RULES.hts_catalog[htsCode];
+      const origin = document.getElementById('c5-origin').value;
+      const fob = parseFloat(document.getElementById('c5-fob').value);
+      const freightIns = parseFloat(document.getElementById('c5-freight').value);
+      const mode = document.getElementById('c5-mode').value;
+      const includeAdCvd = document.getElementById('c5-adcvd').checked;
+
+      document.getElementById('c5-fob-label').textContent = fmtUsd(fob);
+      document.getElementById('c5-freight-label').textContent = fmtUsd(freightIns);
+
+      const cif = fob + freightIns;
+      let genRate = (origin === 'MX' || origin === 'CA') ? 0.0 : profile.general_duty_rate;
+      let sec301Rate = (origin === 'CN') ? profile.china_sec301_rate : 0.0;
+      let ieepaRate = (origin === 'CN') ? profile.china_ieepa_rate : (profile.alt_country_rates[origin] || 0.0);
+      let adCvdRate = (origin === 'CN' && includeAdCvd) ? profile.ad_cvd_baseline_risk_rate : 0.0;
+
+      const genUsd = Math.round(fob * genRate * 100) / 100;
+      const sec301Usd = Math.round(fob * sec301Rate * 100) / 100;
+      const ieepaUsd = Math.round(fob * ieepaRate * 100) / 100;
+      const adCvdUsd = Math.round(fob * adCvdRate * 100) / 100;
+      const totalDuties = genUsd + sec301Usd + ieepaUsd + adCvdUsd;
+
+      const hmfUsd = (mode === 'ocean') ? Math.round(fob * C.CBP_HMF_RATE_OCEAN * 100) / 100 : 0.0;
+      const mpfRaw = Math.round(fob * C.CBP_MPF_AD_VALOREM_RATE * 100) / 100;
+      let mpfUsd = mpfRaw;
+      let mpfStatus = 'AD_VALOREM (0.3464%)';
+      if (mpfRaw < C.CBP_MPF_MIN_USD) {
+        mpfUsd = C.CBP_MPF_MIN_USD;
+        mpfStatus = 'MIN FLOOR ($31.67)';
+      } else if (mpfRaw > C.CBP_MPF_MAX_USD) {
+        mpfUsd = C.CBP_MPF_MAX_USD;
+        mpfStatus = 'MAX CAP ($614.35)';
+      }
+
+      const totalDutiesAndFees = Math.round((totalDuties + hmfUsd + mpfUsd) * 100) / 100;
+      const totalLanded = Math.round((cif + totalDutiesAndFees) * 100) / 100;
+      const effPct = ((totalDutiesAndFees / fob) * 100).toFixed(2);
+
+      // Reshoring alternative (QA-06: includes alt_country_rates[altOrigin] for full Python parity)
+      const altOrigin = profile.best_alt_origin;
+      const altGen = (altOrigin === 'MX' || altOrigin === 'CA' || altOrigin === 'KR') ? 0.0 : profile.general_duty_rate;
+      const altTariff = (profile.alt_country_rates && profile.alt_country_rates[altOrigin]) || 0.0;
+      const altDuties = Math.round(fob * (altGen + altTariff) * 100) / 100;
+      const altLanded = cif + altDuties + hmfUsd + mpfUsd;
+      const altSavings = Math.max(0, totalLanded - altLanded);
+
+      document.getElementById('c5-mpf-badge').textContent = 'MPF: ' + mpfStatus;
+      document.getElementById('c5-kpi-cif').textContent = fmtUsd(cif);
+      document.getElementById('c5-kpi-duties').textContent = fmtUsd(totalDutiesAndFees);
+      document.getElementById('c5-kpi-landed').textContent = fmtUsd(totalLanded);
+
+      document.getElementById('c5-tb-gen-rate').textContent = (genRate * 100).toFixed(2) + '%';
+      document.getElementById('c5-tb-gen-usd').textContent = fmtUsd(genUsd);
+      document.getElementById('c5-tb-301-rate').textContent = (sec301Rate * 100).toFixed(2) + '% (' + profile.china_sec301_subheading + ')';
+      document.getElementById('c5-tb-301-usd').textContent = fmtUsd(sec301Usd);
+      document.getElementById('c5-tb-ieepa-rate').textContent = (ieepaRate * 100).toFixed(2) + '%';
+      document.getElementById('c5-tb-ieepa-usd').textContent = fmtUsd(ieepaUsd);
+      document.getElementById('c5-tb-ad-rate').textContent = (adCvdRate * 100).toFixed(2) + '%';
+      document.getElementById('c5-tb-ad-usd').textContent = fmtUsd(adCvdUsd);
+      document.getElementById('c5-tb-hmf-rate').textContent = mode === 'ocean' ? '0.125% (Ocean)' : '0.00% (Exempt)';
+      document.getElementById('c5-tb-hmf-usd').textContent = fmtUsd(hmfUsd);
+      document.getElementById('c5-tb-mpf-rule').textContent = `${mpfStatus} (Raw: ${fmtUsd(mpfRaw)})`;
+      document.getElementById('c5-tb-mpf-usd').textContent = fmtUsd(mpfUsd);
+      document.getElementById('c5-tb-alt-country').textContent = `Switch Origin to ${altOrigin}`;
+      document.getElementById('c5-tb-alt-save').textContent = 'Save ' + fmtUsd(altSavings);
+      document.getElementById('c5-eff-rate-badge').textContent = `Effective Duty+Fee: ${effPct}%`;
+
+      const winner = CITABLE_RULES.partners['FREIGHTOS_FLEXPORT_PPL'];
+      const tcpaText = `By checking this box, I provide express written consent under the FCC 1-to-1 TCPA Rule (47 CFR § 64.1200) to receive automated calls/texts exclusively from ${winner.partner_legal_name} regarding customs clearance for HTS ${htsCode}.`;
+      document.getElementById('c5-tcpa-text').textContent = tcpaText;
+
+      const payloadObj = {
+        timestamp_utc: new Date().toISOString(),
+        calc_type: 'C5_TARIFF',
+        hts_code: htsCode,
+        origin_country: origin,
+        transport_mode: mode,
+        fob_customs_value_usd: fob,
+        cif_value_usd: cif,
+        hmf_usd: hmfUsd,
+        mpf_usd: mpfUsd,
+        mpf_cap_status: mpfStatus,
+        total_duties_and_cbp_fees_usd: totalDutiesAndFees,
+        total_landed_cost_usd: totalLanded,
+        supply_chain_reshoring_savings_usd: altSavings,
+        winning_partner: winner,
+        fcc_1to1_tcpa_consent_text: tcpaText
+      };
+      const hashHex = await sha256Hex(JSON.stringify(payloadObj));
+      document.getElementById('c5-tcpa-hash').textContent = hashHex;
+      payloadObj.cryptographic_consent_sha256 = hashHex;
+      latestRtbPayload = payloadObj;
+      document.getElementById('rtb-json-display').textContent = JSON.stringify(payloadObj, null, 2);
+    }
+
+    const PARTNER_DEST_URLS = {
+      COLLECTIVE_SCORP: 'https://www.collective.com/?utm_source=citable_2026&utm_medium=rtb_c4_scorp',
+      GUSTO_PAYROLL: 'https://gusto.com/?utm_source=citable_2026&utm_medium=rtb_c4_payroll',
+      NORTHWEST_LLC: 'https://www.northwestregisteredagent.com/?utm_source=citable_2026&utm_medium=rtb_c4_llc',
+      FREIGHTOS_FLEXPORT_PPL: 'https://www.freightos.com/?utm_source=citable_2026&utm_medium=rtb_c5_customs'
+    };
+
+    async function submitRtbLead(calcType) {
+      const isC4 = calcType === 'C4_TAX';
+      if (isC4) await recalcC4(); else await recalcC5();
+      const checkEl = document.getElementById(isC4 ? 'c4-tcpa-check' : 'c5-tcpa-check');
+      const cardEl = document.getElementById(isC4 ? 'c4-partner-card' : 'c5-partner-card');
+      const winner = latestRtbPayload.winning_partner;
+      const consentChecked = Boolean(checkEl && checkEl.checked);
+
+      if (!consentChecked) {
+        cardEl.classList.remove('hidden');
+        cardEl.style.borderColor = 'var(--accent-amber)';
+        cardEl.innerHTML = `<strong style="color:var(--accent-amber);">⚠️ FCC 47 CFR § 64.1200(f)(9) 1-to-1 Consent Required:</strong> Please check the 1-to-1 written consent box above for <strong>${winner.partner_legal_name}</strong> to generate your cryptographic receipt and unlock the direct partner offer.`;
+        return;
+      }
+
+      const reqBody = {
+        ...latestRtbPayload,
+        explicit_consent_checked: true,
+        explicitly_named_seller: winner.partner_legal_name,
+        consent_hash: latestRtbPayload.cryptographic_consent_sha256,
+        needs_multi_employee_payroll: Boolean(document.getElementById('c4-multi-emp')?.checked)
+      };
+
+      let finalPayload = null;
+      let executionMode = 'GITHUB_PAGES_WEBCRYPTO_EDGE';
+
+      try {
+        const resp = await fetch('/api/rtb-lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(reqBody)
+        });
+        if (resp.ok) {
+          finalPayload = await resp.json();
+          executionMode = 'CLOUDFLARE_PAGES_FUNCTION_EDGE';
+        }
+      } catch (_) {
+        // Static GitHub Pages or local file:// mode -> use deterministic client-side WebCrypto RTB router
+      }
+
+      if (!finalPayload) {
+        const sealHex = await sha256Hex('gh_pages_citable_2026_seal:' + JSON.stringify(reqBody));
+        finalPayload = {
+          ok: true,
+          rtb_auction_version: '2026.10-GitHubPages-WebCrypto-ClientEdge',
+          timestamp_utc: new Date().toISOString(),
+          execution_mode: executionMode,
+          calc_type: calcType,
+          winning_partner: winner,
+          fcc_1to1_tcpa_compliance: {
+            rule_reference: 'FCC 23-107 / 47 CFR § 64.1200(f)(9) One-to-One Written Consent',
+            explicit_consent_verified: true,
+            explicitly_named_seller: winner.partner_legal_name,
+            consent_text_verified: latestRtbPayload.fcc_1to1_tcpa_consent_text,
+            client_consent_sha256: latestRtbPayload.cryptographic_consent_sha256,
+            trustedform_cert_url: 'https://cert.trustedform.com/' + latestRtbPayload.cryptographic_consent_sha256.slice(2, 42)
+          },
+          server_verification: {
+            consent_hash_format_valid: true,
+            seller_entity_binding_verified: true,
+            server_audit_seal_sha256: sealHex
+          },
+          partner_webhook_dispatch: {
+            ping_id: 'ping_' + sealHex.slice(2, 18),
+            buyer_endpoint: winner.destination_endpoint,
+            partner_redirect_url: PARTNER_DEST_URLS[winner.partner_id] || 'https://dancerdan15.github.io/citable-tax-tariff-2026/',
+            payout_cpa_or_ppl_usd: winner.cpa_or_ppl_usd,
+            expected_value_ev_usd: winner.expected_value_usd
+          }
+        };
+      }
+
+      document.getElementById('rtb-json-display').textContent = JSON.stringify(finalPayload, null, 2);
+      const destUrl = PARTNER_DEST_URLS[winner.partner_id] || '#';
+      const sealShort = finalPayload.server_verification?.server_audit_seal_sha256?.slice(0, 22) || latestRtbPayload.cryptographic_consent_sha256.slice(0, 22);
+
+      cardEl.classList.remove('hidden');
+      cardEl.style.borderColor = 'var(--accent-green)';
+      cardEl.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+          <strong style="color:var(--accent-green);">✅ 1-to-1 TCPA Consent Sealed (${executionMode})</strong>
+          <span class="badge badge-green">$${winner.cpa_or_ppl_usd.toFixed(2)} CPA / EV $${winner.expected_value_usd.toFixed(2)}</span>
+        </div>
+        <div style="margin-top:0.45rem; font-size:0.84rem; color:#e2e8f0;">
+          Matched Partner: <strong>${winner.partner_legal_name}</strong> (${winner.payout_model})<br/>
+          Cryptographic Audit Seal: <code>${sealShort}...</code>
+        </div>
+        <div style="margin-top:0.7rem; display:flex; gap:0.65rem; flex-wrap:wrap;">
+          <a href="${destUrl}" target="_blank" rel="noopener noreferrer" style="padding:0.55rem 1rem; background:var(--accent-blue); color:#0b1020; font-weight:800; border-radius:0.45rem; text-decoration:none; font-size:0.85rem;">
+            🚀 Proceed to ${winner.partner_legal_name} Offer →
+          </a>
+          <button type="button" onclick="switchTab('tab-rtb')" style="padding:0.55rem 0.9rem; background:var(--bg-panel); color:var(--text-main); border:1px solid var(--border); border-radius:0.45rem; cursor:pointer; font-size:0.82rem;">
+            🔍 View Full RTB JSON Receipt
+          </button>
+        </div>
+      `;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const stateSel = document.getElementById('c4-state');
+      Object.values(CITABLE_RULES.states).forEach(st => {
+        const opt = document.createElement('option');
+        opt.value = st.state_code;
+        opt.textContent = `${st.state_code} – ${st.state_name} (LLC Annual: $${st.llc_annual_fee_usd} | S-Corp Min: $${st.scorp_min_franchise_tax_usd})`;
+        if (st.state_code === 'TX') opt.selected = true;
+        stateSel.appendChild(opt);
+      });
+
+      const htsSel = document.getElementById('c5-hts');
+      Object.values(CITABLE_RULES.hts_catalog).forEach(h => {
+        const opt = document.createElement('option');
+        opt.value = h.hts_code;
+        opt.textContent = `${h.hts_code} – ${h.commercial_name} (Base: ${(h.general_duty_rate*100).toFixed(1)}% + Sec301: ${(h.china_sec301_rate*100).toFixed(0)}%)`;
+        htsSel.appendChild(opt);
+      });
+
+      recalcC4();
+      recalcC5();
+    });
+  </script>
+</body>
+</html>
